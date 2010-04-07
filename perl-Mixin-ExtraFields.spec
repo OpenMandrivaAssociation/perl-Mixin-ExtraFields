@@ -1,5 +1,5 @@
 %define upstream_name    Mixin-ExtraFields
-%define upstream_version 0.008
+%define upstream_version 0.100971
 
 Name:       perl-%{upstream_name}
 Version:    %perl_convert_version %{upstream_version}
