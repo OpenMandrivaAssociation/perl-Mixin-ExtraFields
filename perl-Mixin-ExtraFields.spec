@@ -1,22 +1,22 @@
 %define upstream_name    Mixin-ExtraFields
 %define upstream_version 0.100971
 
-Name:       perl-%{upstream_name}
-Version:    %perl_convert_version %{upstream_version}
-Release:    %mkrel 2
+Name:		perl-%{upstream_name}
+Version:	%perl_convert_version %{upstream_version}
+Release:	3
 
-Summary:    Store extras in a hashy object's guts
-License:    GPL+ or Artistic
-Group:      Development/Perl
-Url:        http://search.cpan.org/dist/%{upstream_name}
-Source0:    http://www.cpan.org/modules/by-module/Mixin/%{upstream_name}-%{upstream_version}.tar.gz
+Summary:	Store extras in a hashy object's guts
+License:	GPL+ or Artistic
+Group:		Development/Perl
+Url:		http://search.cpan.org/dist/%{upstream_name}
+Source0:	http://www.cpan.org/modules/by-module/Mixin/%{upstream_name}-%{upstream_version}.tar.gz
 
-BuildRequires: perl(String::RewritePrefix)
-BuildRequires: perl(Sub::Exporter)
-BuildRequires: perl(Sub::Install)
+BuildRequires:	perl-devel
+BuildRequires:	perl(String::RewritePrefix)
+BuildRequires:	perl(Sub::Exporter)
+BuildRequires:	perl(Sub::Install)
 
-BuildArch: noarch
-BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}
+BuildArch:	noarch
 
 %description
 Sometimes your well-defined object needs a way to tack on arbirary extra
@@ -38,23 +38,40 @@ one or many storage mechanisms.
 %setup -q -n %{upstream_name}-%{upstream_version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
+perl Makefile.PL INSTALLDIRS=vendor
 %make
 
 %check
 make test
 
 %install
-rm -rf %buildroot
 %makeinstall_std
 
-%clean
-rm -rf %buildroot
-
 %files
-%defattr(-,root,root)
 %doc Changes LICENSE README
 %{_mandir}/man3/*
-%perl_vendorlib/*
+%{perl_vendorlib}/*
 
+%changelog
+* Sun Apr 17 2011 Funda Wang <fwang@mandriva.org> 0.100.971-2mdv2011.0
++ Revision: 654252
+- rebuild for updated spec-helper
+
+* Wed Apr 07 2010 Jérôme Quelin <jquelin@mandriva.org> 0.100.971-1mdv2011.0
++ Revision: 532713
+- update to 0.100971
+
+* Tue Jan 19 2010 Jérôme Quelin <jquelin@mandriva.org> 0.8.0-1mdv2010.1
++ Revision: 493493
+- adding missing buildrequires
+- update to 0.008
+
+* Fri May 29 2009 Jérôme Quelin <jquelin@mandriva.org> 0.7.0-1mdv2010.0
++ Revision: 380978
+- adding missing buildrequires:
+- import perl-Mixin-ExtraFields
+
+
+* Fri May 29 2009 cpan2dist 0.007-1mdv
+- initial mdv release, generated with cpan2dist
 
